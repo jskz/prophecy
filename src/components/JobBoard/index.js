@@ -38,6 +38,15 @@ const JobBoard = () => {
             {
                 Header: 'Job Name',
                 accessor: 'name',
+                Cell: ({ row }) => {
+                    const { name } = row.values;
+
+                    return (
+                        <span className="block overflow-hidden text-ellipsis">
+                            {name}
+                        </span>
+                    )
+                }
             },
             {
                 Header: 'Project Status',
