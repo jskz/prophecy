@@ -5,7 +5,11 @@ import { Dialog, Transition } from '@headlessui/react';
 import ProjectSelector from '../ProjectSelector';
 
 import { updateJob } from '../../actions/jobs';
-import { CLOSE_EDIT_JOB_MODAL } from '../../actions/types';
+import {
+    CLOSE_EDIT_JOB_MODAL,
+    SET_EDITING_JOB_NAME,
+    SET_EDITING_JOB_PROJECT_IDS
+} from '../../actions/types';
 
 const EditJobModal = () => {
     const [jobProjects, setJobProjects] = useState([]);
@@ -17,6 +21,8 @@ const EditJobModal = () => {
     const { projects } = useSelector(state => state.projects);
 
     const dispatch = useDispatch();
+    const setEditingJobName = (value) => dispatch({ type: SET_EDITING_JOB_NAME, payload: value });
+    const setEditingJobProjectIds = (value) => dispatch({ type: SET_EDITING_JOB_PROJECT_IDS, payload: value });
     const closeEditJobModal = () => dispatch({ type: CLOSE_EDIT_JOB_MODAL });
 
     useEffect(() => {
@@ -89,6 +95,23 @@ const EditJobModal = () => {
                             >
                                 Edit {editingJob.name}
                             </Dialog.Title>
+                            
+                            <div className="mt-6">
+                                <label htmlFor="name" className="block text-xs font-bold text-gray-400 mb-2 uppercase">
+                                    Job Name
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        id="name"
+                                        className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                        placeholder="Job Name"
+                                        value={editingJob.name}
+                                        onChange={(ev) => setEditingJobName(ev.target.value)}
+                                    />
+                                </div>
+                            </div>
 
                             <div className="mt-2">
                                 <p className="text-xs font-bold text-gray-400 mb-2 uppercase">
@@ -100,7 +123,7 @@ const EditJobModal = () => {
 
                                 <ProjectSelector 
                                     value={jobProjects}
-                                    onChange={value => setJobProjects(value)} />
+                                    onChange={value => setEditingJobProjectIds(value.map(project => project.value))} />
                             </div>
 
                             <div className="mt-6">

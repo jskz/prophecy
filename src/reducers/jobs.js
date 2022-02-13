@@ -3,7 +3,9 @@ import { MOCK_JOB_DATA } from '../util/mock';
 import {
     CLOSE_EDIT_JOB_MODAL,
     EDIT_JOB,
-    JOB_UPDATED
+    JOB_UPDATED,
+    SET_EDITING_JOB_NAME,
+    SET_EDITING_JOB_PROJECT_IDS
  } from '../actions/types';
 
 const initialState = {
@@ -42,6 +44,24 @@ export default function reducer(state = initialState, action) {
 
                 editJobModalOpen: true,
                 editingJob: action.payload
+            };
+
+        case SET_EDITING_JOB_NAME:
+            return {
+                ...state,
+                editingJob: {
+                    ...state.editingJob,
+                    name: action.payload
+                }
+            };
+
+        case SET_EDITING_JOB_PROJECT_IDS:
+            return {
+                ...state,
+                editingJob: {
+                    ...state.editingJob,
+                    project_ids: action.payload
+                }
             };
 
         case CLOSE_EDIT_JOB_MODAL:
