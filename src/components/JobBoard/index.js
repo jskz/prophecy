@@ -110,7 +110,10 @@ const JobBoard = () => {
             },
             {
                 Header: 'Resources',
-                accessor: 'resources'
+                accessor: 'resources',
+                Cell: () => (
+                    <span></span>
+                )
             }
         ],
         [projects]
