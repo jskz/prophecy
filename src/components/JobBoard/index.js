@@ -146,7 +146,8 @@ const JobBoard = () => {
         {
             columns,
             data: jobs,
-            defaultColumn
+            defaultColumn,
+            autoResetExpanded: false
         },
         useExpanded,
         useFlexLayout,
