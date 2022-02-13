@@ -85,10 +85,21 @@ const JobBoard = () => {
                 ),
                 accessor: 'hours_invested',
                 Cell: ({ row }) => {
-                    const { project_ids } = row.original;
+                    const { project_ids, budget_hours } = row.original;
                     const hours_invested = projects
                         .filter(project => project_ids.includes(project.id))
                         .reduce((prev, curr) => prev + curr.hours_invested, 0);
+
+                    if (typeof budget_hours !== 'undefined') {
+                        const budgetHoursExhaustedPercentage = parseInt(hours_invested * 100 / budget_hours);
+
+                        return (
+                            <span>
+                                <span className="hours-invested">{`${hours_invested}`}</span>
+                                <span className={`font-bold budget-percentage-exhausted`}>{` (${budgetHoursExhaustedPercentage}%)`}</span>
+                            </span>
+                        );
+                    }
 
                     return (
                         <span className="font-bold">
@@ -128,7 +139,7 @@ const JobBoard = () => {
         ],
         [projects, resources]
     );
-    
+
     const editJob = (row) => dispatch({ type: EDIT_JOB, payload: { ...row } });
 
     const jobTable = useTable(

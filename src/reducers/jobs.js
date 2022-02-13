@@ -6,7 +6,8 @@ import {
     JOB_UPDATED,
     SET_EDITING_JOB_NAME,
     SET_EDITING_JOB_PROJECT_IDS,
-    SET_EDITING_JOB_RESOURCE_IDS
+    SET_EDITING_JOB_RESOURCE_IDS,
+    SET_EDITING_JOB_RESOURCE_ALLOCATION
  } from '../actions/types';
 
 const initialState = {
@@ -73,6 +74,18 @@ export default function reducer(state = initialState, action) {
                     resource_ids: action.payload
                 }
             };
+
+        case SET_EDITING_JOB_RESOURCE_ALLOCATION:
+            return {
+                ...state,
+                editingJob: {
+                    ...state.editingJob,
+                    allocations: {
+                        ...state.editingJob.allocations,
+                        [action.payload.id]: action.payload.value
+                    }
+                }
+            }
 
         case CLOSE_EDIT_JOB_MODAL:
             return {

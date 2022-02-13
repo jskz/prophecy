@@ -6,8 +6,8 @@ import {
 const JobDetails = ({ row, editJob }) => {
     return (
         <div className="bg-gray-50 px-6 py-3 text-gray-700 text-sm">
-            <div className="font-bold text-gray-400">
-                Here we will display extended information / contextual actions for the job.
+            <div className="font-bold text-gray-400 text-sm uppercase">
+                Job management and other TBD interactions
             </div>
 
             <div className="mt-2">
