@@ -6,22 +6,24 @@ import {
 
 import Layout from './layouts/MainLayout';
 
-import Home from './views/Home';
 import Login from './views/Login';
 import Jobs from './views/Jobs';
+import Reporting from './views/Reporting';
 import Resources from './views/Resources';
 import Schedule from './views/Schedule';
+import Settings from './views/Settings';
 
 const ApplicationRouter = () => (
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<Layout />}>
-                <Route index element={<Home />} />
-                
+                <Route index element={<Jobs />} />
+
                 <Route path="login" element={<Login />} />
-                <Route path="jobs" element={<Jobs />} />
+                <Route path="reporting" element={<Reporting />} />
                 <Route path="resources" element={<Resources />} />
                 <Route path="schedule" element={<Schedule />} />
+                <Route path="settings" element={<Settings />} />
             </Route>
         </Routes>
     </BrowserRouter>
