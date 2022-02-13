@@ -9,4 +9,5 @@ export const ColumnResizer = styled.div`
     height: 100%;
     display: inline-block;
     position: relative;
+    z-index: 10;
 `;
