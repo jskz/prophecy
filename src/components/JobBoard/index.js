@@ -1,7 +1,9 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import {
     useTable,
+
+    useExpanded,
     useFlexLayout,
     useResizeColumns
 } from 'react-table';
@@ -94,11 +96,13 @@ const JobBoard = () => {
         []
     );
 
-    const jobTable = useTable({
-        columns,
-        data: jobs,
-        defaultColumn
-    },
+    const jobTable = useTable(
+        {
+            columns,
+            data: jobs,
+            defaultColumn
+        },
+        useExpanded,
         useFlexLayout,
         useResizeColumns
     );
@@ -110,6 +114,25 @@ const JobBoard = () => {
         headerGroups,
         rows
     } = jobTable;
+
+    const renderRowSubComponent = useCallback(
+        ({ row }) => (
+            <div className="bg-gray-50 px-6 py-3 text-gray-700 text-sm">
+                <div className="font-bold text-gray-400">
+                    Here we will display extended information / contextual actions for the job.  For now, display a JSON view of this record's mock data:
+                </div>
+
+                <pre
+                    style={{
+                        fontSize: '10px',
+                    }}
+                >
+                    <code>{JSON.stringify({ values: row.values }, null, 2)}</code>
+                </pre>
+            </div>
+        ),
+        []
+    );
 
     return (
         <div className="flex flex-col overflow-hidden">
@@ -146,15 +169,25 @@ const JobBoard = () => {
                                             prepareRow(row);
 
                                             return (
-                                                <div {...row.getRowProps()} className="tr hover:bg-gray-100 hover:cursor-pointer">
-                                                    {
-                                                        row.cells.map(cell => (
-                                                            <span {...cell.getCellProps()} className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
-                                                                {cell.render('Cell')}
-                                                            </span>
-                                                        ))
-                                                    }
-                                                </div>
+                                                <>
+                                                    <div
+                                                        {...row.getToggleRowExpandedProps()}
+                                                        {...row.getRowProps()}
+                                                        className={`tr hover:bg-gray-100 hover:cursor-pointer ${row.isExpanded ? 'bg-gray-200' : ''}`}>
+                                                        {
+                                                            row.cells.map(cell => (
+                                                                <span {...cell.getCellProps()} className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
+                                                                    {cell.render('Cell')}
+                                                                </span>
+                                                            ))
+                                                        }
+                                                    </div>
+                                                    {row.isExpanded ? (
+                                                        <div>
+                                                            {renderRowSubComponent({ row })}
+                                                        </div>
+                                                    ) : null}
+                                                </>
                                             );
                                         })}
                                     </div>
