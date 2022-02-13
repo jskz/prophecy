@@ -166,8 +166,13 @@ const EditJobModal = () => {
 
                                     <ResourceSelector
                                         value={jobResources}
-                                        onChange={value => setEditingJobResourceIds(value.map(resource => resource.value))} />
+                                        onChange={(value, action) => {
+                                            setEditingJobResourceIds(value.map(resource => resource.value));
 
+                                            if(action.action === 'remove-value') {
+                                                setEditingJobResourceAllocation(action.removedValue.value, 0);
+                                            }
+                                        }} />
                                     <div className="mt-2">
                                         {
                                             jobResources

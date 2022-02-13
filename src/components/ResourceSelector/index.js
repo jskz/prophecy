@@ -19,7 +19,7 @@ const ResourceSelector = ({ value, onChange }) => {
                     input: base => ({ ...base, outline: 'none' })
                 }}
                 value={value}
-                onChange={value => onChange(value)}
+                onChange={(value, action) => onChange(value, action)}
             />
         </ResourceSelectorWrapper>
     );
