@@ -8,7 +8,7 @@ export const MOCK_PROJECT_DATA = [
 export const MOCK_JOB_DATA = [
     { id: 1, name: 'Legacy Web Project', budget: 7000.00, project_status: 'In Development', project_ids: [1, 2], resources: [{ id: 2, allocation: 0.7 }] },
     { id: 2, name: 'Big SaaS Project', budget: 270000.00, project_status: 'In Development', project_ids: [3], resources: [{ id: 2, allocation: 0.3 }, { id: 3, allocation: 1.0 }] },
-    { id: 3, name: 'Just Make It Work!', budget: 20.00, project_status: 'In Development', project_ids: [4], resources: [] }
+    { id: 3, name: 'Just Make It Work!', budget: 20.00, project_status: 'In Development', project_ids: [4], resources: [{ id: 1, allocation: 1.0 }] }
 ];
 
 export const MOCK_RESOURCE_DATA = [

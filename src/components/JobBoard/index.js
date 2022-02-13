@@ -17,12 +17,9 @@ import { EDIT_JOB } from '../../actions/types';
 const JobBoard = () => {
     const dispatch = useDispatch();
 
-    const {
-        jobs
-    } = useSelector(state => state.jobs);
-    const {
-        projects
-    } = useSelector(state => state.projects);
+    const { jobs } = useSelector(state => state.jobs);
+    const { projects } = useSelector(state => state.projects);
+    const { resources } = useSelector(state => state.resources);
 
     // react-table definitions
     const defaultColumn = useMemo(
@@ -111,12 +108,22 @@ const JobBoard = () => {
             {
                 Header: 'Resources',
                 accessor: 'resources',
-                Cell: () => (
-                    <span></span>
-                )
+                Cell: ({ row }) => {
+                    const projectResources = row.original.resources
+                        .map(resource => ([resource, resources.find(r => r.id === resource.id)]))
+                        .filter(([_, resource]) => Boolean(resource))
+                        .map(([projectResource, resource]) => `${resource.name} - ${projectResource.allocation * 100}%`)
+                        .join(', ');
+
+                    return (
+                        <span className="block overflow-hidden text-ellipsis">
+                            {projectResources}
+                        </span>
+                    );
+                }
             }
         ],
-        [projects]
+        [projects, resources]
     );
     
     const editJob = (row) => dispatch({ type: EDIT_JOB, payload: { ...row } });
