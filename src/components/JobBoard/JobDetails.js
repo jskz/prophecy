@@ -21,9 +21,10 @@ const JobDetails = ({ row, editJob }) => {
                 </button>
 
                 <button
+                    disabled
                     type="button"
                     onClick={() => false}
-                    className="inline-flex items-center ml-2 px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="inline-flex hover:cursor-not-allowed items-center ml-2 px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-300 hover:bg-indigo-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     <ArchiveIcon className="-ml-0.5 mr-2 h-4 w-4" aria-hidden="true" />
                     Archive Job
