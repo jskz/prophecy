@@ -10,3 +10,9 @@ export const MOCK_JOB_DATA = [
     { id: 2, name: 'Big SaaS Project', budget: 270000.00, project_status: 'In Development', project_ids: [3] },
     { id: 3, name: 'Just Make It Work!', budget: 20.00, project_status: 'In Development', project_ids: [4] },
 ];
+
+export const MOCK_RESOURCE_DATA = [
+    { id: 1, name: 'James Skarzinskas', roles: ['DEVELOPER', 'PROJECT_MANAGER'] },
+    { id: 2, name: 'Ivana Code', roles: ['DEVELOPER'] },
+    { id: 3, name: 'Bob Dobbs', roles: ['DEVELOPER'] }
+];
