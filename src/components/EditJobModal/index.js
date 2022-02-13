@@ -14,7 +14,8 @@ import {
     SET_EDITING_JOB_NAME,
     SET_EDITING_JOB_PROJECT_IDS,
     SET_EDITING_JOB_RESOURCE_IDS,
-    SET_EDITING_JOB_RESOURCE_ALLOCATION
+    SET_EDITING_JOB_RESOURCE_ALLOCATION,
+    SET_EDITING_JOB_BUDGET_HOURS
 } from '../../actions/types';
 
 const EditJobModal = () => {
@@ -31,6 +32,7 @@ const EditJobModal = () => {
     const dispatch = useDispatch();
 
     const setEditingJobName = (value) => dispatch({ type: SET_EDITING_JOB_NAME, payload: value });
+    const setEditingJobBudgetHours = (value) => dispatch({ type: SET_EDITING_JOB_BUDGET_HOURS, payload: value });
     const setEditingJobProjectIds = (value) => dispatch({ type: SET_EDITING_JOB_PROJECT_IDS, payload: value });
     const setEditingJobResourceIds = (value) => dispatch({ type: SET_EDITING_JOB_RESOURCE_IDS, payload: value });
     const setEditingJobResourceAllocation = (id, value) => dispatch({ type: SET_EDITING_JOB_RESOURCE_ALLOCATION, payload: { id, value } });
@@ -147,6 +149,24 @@ const EditJobModal = () => {
                                 </div>
 
                                 <div className="mt-6">
+                                    <label htmlFor="name" className="block text-xs font-bold text-gray-400 mb-2 uppercase">
+                                        Budget Hours
+                                    </label>
+                                    <div className="mt-2">
+                                        <input
+                                            type="text"
+                                            name="budget_hours"
+                                            id="budget_hours"
+                                            required
+                                            className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                            placeholder="Budget Hours"
+                                            value={editingJob.budget_hours}
+                                            onChange={(ev) => setEditingJobBudgetHours(ev.target.value)}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="mt-6">
                                     <p className="text-xs font-bold text-gray-400 mb-2 uppercase">
                                         Time-tracking data sources
                                     </p>
@@ -172,7 +192,7 @@ const EditJobModal = () => {
                                         onChange={(value, action) => {
                                             setEditingJobResourceIds(value.map(resource => resource.value));
 
-                                            if(action.action === 'remove-value') {
+                                            if (action.action === 'remove-value') {
                                                 setEditingJobResourceAllocation(action.removedValue.value, 0);
                                             }
                                         }} />

@@ -7,8 +7,9 @@ import {
     SET_EDITING_JOB_NAME,
     SET_EDITING_JOB_PROJECT_IDS,
     SET_EDITING_JOB_RESOURCE_IDS,
-    SET_EDITING_JOB_RESOURCE_ALLOCATION
- } from '../actions/types';
+    SET_EDITING_JOB_RESOURCE_ALLOCATION,
+    SET_EDITING_JOB_BUDGET_HOURS
+} from '../actions/types';
 
 const initialState = {
     loading: false,
@@ -24,7 +25,7 @@ const initialState = {
 };
 
 export default function reducer(state = initialState, action) {
-    switch(action.type) {
+    switch (action.type) {
         case JOB_UPDATED:
             {
                 const { id, job } = action.payload;
@@ -54,6 +55,15 @@ export default function reducer(state = initialState, action) {
                 editingJob: {
                     ...state.editingJob,
                     name: action.payload
+                }
+            };
+
+        case SET_EDITING_JOB_BUDGET_HOURS:
+            return {
+                ...state,
+                editingJob: {
+                    ...state.editingJob,
+                    budget_hours: action.payload
                 }
             };
 
