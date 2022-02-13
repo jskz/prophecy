@@ -1,6 +1,9 @@
 import { Fragment, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Dialog, Transition } from '@headlessui/react';
+import {
+    CheckCircleIcon
+} from "@heroicons/react/solid";
 
 import ProjectSelector from '../ProjectSelector';
 import ResourceSelector from '../ResourceSelector';
@@ -228,7 +231,7 @@ const EditJobModal = () => {
                                         type="submit"
                                         className="inline-flex justify-center ml-4 px-4 py-2 text-sm font-medium text-white bg-green-700 border border-transparent rounded-md hover:bg-green-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                                     >
-                                        Save Changes
+                                        <CheckCircleIcon className="-ml-0.5 mr-2 top-[2px] relative w-4" aria-hidden="true" /> Save Changes
                                     </button>
                                 </div>
                             </form>
