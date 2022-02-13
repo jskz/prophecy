@@ -1,22 +1,55 @@
-import { useDispatch } from 'react-redux';
+import { useEffect, useCallback, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
     useNavigate,
-    useLocation
+    useLocation,
 } from 'react-router-dom';
 
+import { loginWithRememberedToken } from '../../actions/auth';
+
 function Login() {
+    const [storedToken] = useState(localStorage.getItem('token'));
+    const [remember, setRemember] = useState(false);
+
     const dispatch = useDispatch();
+    const { authenticated } = useSelector(state => state.auth);
     const location = useLocation();
     const navigate = useNavigate();
 
-    function onSubmit(ev) {
+    const onSubmit = useCallback((ev) => {
         ev.preventDefault();
 
         dispatch({ type: 'LOGIN_SUCCESS' });
         const from = location.state?.from?.pathname || "/";
         navigate(from, { replace: true });
 
+        if (remember) {
+            localStorage.setItem('token', 'example-token');
+        }
+
         return false;
+    }, [remember, location, dispatch, navigate]);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        if (token) {
+            dispatch(loginWithRememberedToken(token));
+        }
+    }, [dispatch]);
+
+    useEffect(() => {
+        if (authenticated) {
+            navigate('/', { replace: true });
+        }
+    }, [authenticated, navigate]);
+
+    if (storedToken) {
+        return (
+            <div className="bg-gray-300">
+                <div className="min-h-[100vh]" />
+            </div>
+        );
     }
 
     return (
@@ -63,6 +96,8 @@ function Login() {
                                         id="remember-me"
                                         name="remember-me"
                                         type="checkbox"
+                                        checked={remember}
+                                        onChange={() => setRemember(!remember)}
                                         className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                                     />
                                     <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">

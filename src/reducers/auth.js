@@ -1,4 +1,5 @@
 const initialState = {
+    loading: false,
     authenticated: false,
     token: null
 };
