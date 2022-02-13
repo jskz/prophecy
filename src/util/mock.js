@@ -6,13 +6,13 @@ export const MOCK_PROJECT_DATA = [
 ];
 
 export const MOCK_JOB_DATA = [
-    { id: 1, name: 'Legacy Web Project', budget: 7000.00, project_status: 'In Development', project_ids: [1, 2], resources: [{ id: 2, allocation: 0.7 }] },
-    { id: 2, name: 'Big SaaS Project', budget: 270000.00, project_status: 'In Development', project_ids: [3], resources: [{ id: 2, allocation: 0.3 }, { id: 3, allocation: 1.0 }] },
-    { id: 3, name: 'Just Make It Work!', budget: 20.00, project_status: 'In Development', project_ids: [4], resources: [{ id: 1, allocation: 1.0 }] }
+    { id: 1, name: 'Legacy Web Project', budget_hours: 50, budget: 7000.00, project_status: 'In Development', project_ids: [1, 2], resource_ids: [2], allocations: {2: 0.7} },
+    { id: 2, name: 'Big SaaS Project', budget_hours: 800, budget: 270000.00, project_status: 'In Development', project_ids: [3], resource_ids: [2, 3], allocations: {2: 0.3, 3: 1.0} },
+    { id: 3, name: 'Just Make It Work!', budget_hours: 30, budget: 20.00, project_status: 'In Development', project_ids: [4], resource_ids: [1], allocations: {1: 1.0} }
 ];
 
 export const MOCK_RESOURCE_DATA = [
-    { id: 1, name: 'James Skarzinskas', roles: ['DEVELOPER', 'PROJECT_MANAGER'] },
-    { id: 2, name: 'Ivana Code', roles: ['DEVELOPER'] },
-    { id: 3, name: 'Bob Dobbs', roles: ['DEVELOPER'] }
+    { id: 1, name: 'James Skarzinskas', roles: ['DEVELOPER', 'PROJECT_MANAGER'], weekly_hours: 50 },
+    { id: 2, name: 'Ivana Code', roles: ['DEVELOPER'], weekly_hours: 40 },
+    { id: 3, name: 'J.R. "Bob" Dobbs', roles: ['DEVELOPER'], weekly_hours: 40 }
 ];

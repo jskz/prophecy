@@ -3,30 +3,35 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Dialog, Transition } from '@headlessui/react';
 
 import ProjectSelector from '../ProjectSelector';
+import ResourceSelector from '../ResourceSelector';
 
 import { updateJob } from '../../actions/jobs';
 import {
     CLOSE_EDIT_JOB_MODAL,
     SET_EDITING_JOB_NAME,
-    SET_EDITING_JOB_PROJECT_IDS
+    SET_EDITING_JOB_PROJECT_IDS,
+    SET_EDITING_JOB_RESOURCE_IDS
 } from '../../actions/types';
 
 const EditJobModal = () => {
     const [jobProjects, setJobProjects] = useState([]);
+    const [jobResources, setJobResources] = useState([]);
 
     const {
         editJobModalOpen,
         editingJob
     } = useSelector(state => state.jobs);
+    const { resources } = useSelector(state => state.resources);
     const { projects } = useSelector(state => state.projects);
 
     const dispatch = useDispatch();
     const setEditingJobName = (value) => dispatch({ type: SET_EDITING_JOB_NAME, payload: value });
     const setEditingJobProjectIds = (value) => dispatch({ type: SET_EDITING_JOB_PROJECT_IDS, payload: value });
+    const setEditingJobResourceIds = (value) => dispatch({ type: SET_EDITING_JOB_RESOURCE_IDS, payload: value });
     const closeEditJobModal = () => dispatch({ type: CLOSE_EDIT_JOB_MODAL });
 
     useEffect(() => {
-        setJobProjects(editingJob.project_ids 
+        setJobProjects(editingJob.project_ids
             ? editingJob.project_ids
                 .map(projectId => ([
                     projectId,
@@ -39,16 +44,32 @@ const EditJobModal = () => {
                 }))
             : []);
     }, [editingJob, projects]);
-    
+
+    useEffect(() => {
+        setJobResources(editingJob.resource_ids
+            ? editingJob.resource_ids
+                .map(resource => ([
+                    resource,
+                    resources.find(r => r.id === resource)
+                ]))
+                .filter(([_, resource]) => Boolean(resource))
+                .map(([resourceId, resource]) => ({
+                    value: resourceId,
+                    label: resource.name
+                }))
+            : []);
+    }, [editingJob, resources]);
+
     function saveJob(job) {
-        dispatch(updateJob({ 
-            id: job.id, 
+        dispatch(updateJob({
+            id: job.id,
             job: {
                 ...job,
-                project_ids: jobProjects.map(jobProject => jobProject.value)
-            } 
+                project_ids: jobProjects.map(jobProject => jobProject.value),
+                resource_ids: jobResources.map(jobResource => jobResource.value)
+            }
         }));
-        
+
         closeEditJobModal();
     }
 
@@ -88,14 +109,14 @@ const EditJobModal = () => {
                         leaveFrom="opacity-100 scale-100"
                         leaveTo="opacity-0 scale-95"
                     >
-                        <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                        <div className="inline-block w-full max-w-xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                             <Dialog.Title
                                 as="h3"
                                 className="text-lg font-medium leading-6 text-gray-900"
                             >
                                 Edit {editingJob.name}
                             </Dialog.Title>
-                            
+
                             <form onSubmit={(ev) => {
                                 ev.preventDefault();
                                 saveJob(editingJob);
@@ -119,7 +140,7 @@ const EditJobModal = () => {
                                     </div>
                                 </div>
 
-                                <div className="mt-2">
+                                <div className="mt-6">
                                     <p className="text-xs font-bold text-gray-400 mb-2 uppercase">
                                         Time-tracking data sources
                                     </p>
@@ -134,14 +155,34 @@ const EditJobModal = () => {
 
                                 <div className="mt-6">
                                     <p className="text-xs font-bold text-gray-400 mb-2 uppercase">
-                                        TBD job fields edited here
+                                        Allocated resources
                                     </p>
                                     <p className="text-sm text-gray-500 mb-2">
-                                        Other field groups...
+                                        Choose assigned resources and specify their allocation (%) to this job.
                                     </p>
+
+                                    <ResourceSelector
+                                        value={jobResources}
+                                        onChange={value => setEditingJobResourceIds(value.map(resource => resource.value))} />
+
+                                    <div className="mt-2">
+                                        {
+                                            jobResources
+                                                .map(resource => ([
+                                                    resource.value,
+                                                    resources.find(r => r.id === resource.value),
+                                                    editingJob.allocations[resource.value] || 0
+                                                ]))
+                                                .map(([_, resource, allocation]) =>
+                                                    <div>
+                                                        {resource.name} - {parseInt(allocation * 100)}% ({resource.weekly_hours * allocation} hours/week)
+                                                    </div>
+                                                )
+                                        }
+                                    </div>
                                 </div>
 
-                                <div className="mt-6">
+                                <div className="mt-6 pb-4 border-b-[1px]">
                                     <p className="text-xs font-bold text-gray-400 mb-2 uppercase">
                                         TBD job fields edited here
                                     </p>
@@ -150,7 +191,7 @@ const EditJobModal = () => {
                                     </p>
                                 </div>
 
-                                <div className="mt-4">
+                                <div className="mt-6">
                                     <button
                                         type="button"
                                         className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"

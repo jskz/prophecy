@@ -109,10 +109,13 @@ const JobBoard = () => {
                 Header: 'Resources',
                 accessor: 'resources',
                 Cell: ({ row }) => {
-                    const projectResources = row.original.resources
-                        .map(resource => ([resource, resources.find(r => r.id === resource.id)]))
+                    const projectAllocations = row.original.allocations;
+                    const projectResources = row.original.resource_ids
+                        .map(resource => ([resource, resources.find(r => r.id === resource)]))
                         .filter(([_, resource]) => Boolean(resource))
-                        .map(([projectResource, resource]) => `${resource.name} - ${projectResource.allocation * 100}%`)
+                        .map(([_, resource]) => (
+                            `${resource.name} - ${projectAllocations[resource.id] * 100}%`)
+                        )
                         .join(', ');
 
                     return (
