@@ -1,8 +1,8 @@
 export const MOCK_PROJECT_DATA = [
     { id: 1, name: 'LWEB PROJECT', hours_invested: 15.0 },
-    { id: 2, name: 'LWEB PROJECT SECOND TRACKING CODE', hours_invested: 15.3 },
-    { id: 3, name: 'BUCKET CODE', hours_invested: 40 },
-    { id: 4, name: 'JMIW - Project Code', hours_invested: 90 }
+    { id: 2, name: 'LWEB 2nd', hours_invested: 15.3 },
+    { id: 3, name: 'BIGSAAS', hours_invested: 40 },
+    { id: 4, name: 'JMIW', hours_invested: 90 }
 ];
 
 export const MOCK_JOB_DATA = [

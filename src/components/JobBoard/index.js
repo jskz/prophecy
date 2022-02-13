@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     useTable,
 
@@ -10,10 +10,13 @@ import {
 
 import { ColumnResizer } from './JobBoardStyles';
 import JobDetails from './JobDetails';
-
 import { currencyFormatter } from '../../util/formatting';
 
+import { EDIT_JOB } from '../../actions/types';
+
 const JobBoard = () => {
+    const dispatch = useDispatch();
+
     const {
         jobs
     } = useSelector(state => state.jobs);
@@ -103,6 +106,8 @@ const JobBoard = () => {
         ],
         [projects]
     );
+    
+    const editJob = (row) => dispatch({ type: EDIT_JOB, payload: { ...row } });
 
     const jobTable = useTable(
         {
@@ -122,11 +127,6 @@ const JobBoard = () => {
         headerGroups,
         rows
     } = jobTable;
-
-    const renderRowSubComponent = useCallback(
-        JobDetails,
-        []
-    );
 
     return (
         <div className="flex flex-col overflow-hidden">
@@ -178,7 +178,7 @@ const JobBoard = () => {
                                                     </div>
                                                     {row.isExpanded ? (
                                                         <div>
-                                                            {renderRowSubComponent({ row })}
+                                                            <JobDetails row={row} editJob={editJob} />
                                                         </div>
                                                     ) : null}
                                                 </>
