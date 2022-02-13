@@ -8,7 +8,6 @@ import createStore from './util/createApplicationStore';
 import './index.css';
 
 const store = createStore();
-window.store = store;
 
 ReactDOM.render(
     <React.StrictMode>
