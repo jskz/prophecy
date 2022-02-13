@@ -17,6 +17,9 @@ const JobBoard = () => {
     const {
         jobs
     } = useSelector(state => state.jobs);
+    const {
+        projects
+    } = useSelector(state => state.projects);
 
     // react-table definitions
     const defaultColumn = useMemo(
@@ -73,7 +76,10 @@ const JobBoard = () => {
                 ),
                 accessor: 'hours_invested',
                 Cell: ({ row }) => {
-                    const { hours_invested } = row.values;
+                    const { project_ids } = row.original;
+                    const hours_invested = projects
+                        .filter(project => project_ids.includes(project.id))
+                        .reduce((prev, curr) => prev + curr.hours_invested, 0);
 
                     return (
                         <span className="font-bold">
@@ -95,7 +101,7 @@ const JobBoard = () => {
                 accessor: 'resources'
             }
         ],
-        []
+        [projects]
     );
 
     const jobTable = useTable(
