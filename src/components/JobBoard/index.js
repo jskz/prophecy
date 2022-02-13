@@ -1,23 +1,13 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components';
 import {
     useTable,
     useFlexLayout,
     useResizeColumns
 } from 'react-table';
 
+import { ColumnResizer } from './JobBoardStyles';
 import { currencyFormatter } from '../../util/formatting';
-
-const ColumnResizer = styled.div`
-background-color: #e0e0e0;
-align-self: center;
-justify-self: flex-end;
-width: 6px;
-height: 100%;
-display: inline-block;
-position: relative;
-`;
 
 const JobBoard = () => {
     const {
