@@ -96,70 +96,76 @@ const EditJobModal = () => {
                                 Edit {editingJob.name}
                             </Dialog.Title>
                             
-                            <div className="mt-6">
-                                <label htmlFor="name" className="block text-xs font-bold text-gray-400 mb-2 uppercase">
-                                    Job Name
-                                </label>
-                                <div className="mt-2">
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        id="name"
-                                        className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                        placeholder="Job Name"
-                                        value={editingJob.name}
-                                        onChange={(ev) => setEditingJobName(ev.target.value)}
-                                    />
+                            <form onSubmit={(ev) => {
+                                ev.preventDefault();
+                                saveJob(editingJob);
+                                return false;
+                            }}>
+                                <div className="mt-6">
+                                    <label htmlFor="name" className="block text-xs font-bold text-gray-400 mb-2 uppercase">
+                                        Job Name
+                                    </label>
+                                    <div className="mt-2">
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            id="name"
+                                            required
+                                            className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                            placeholder="Job Name"
+                                            value={editingJob.name}
+                                            onChange={(ev) => setEditingJobName(ev.target.value)}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="mt-2">
-                                <p className="text-xs font-bold text-gray-400 mb-2 uppercase">
-                                    Time-tracking data sources
-                                </p>
-                                <p className="text-sm text-gray-500 mb-2">
-                                    This job aggregates time-tracking data from these projects retrieved from an external time-tracking system (e.g. Hubstaff):
-                                </p>
+                                <div className="mt-2">
+                                    <p className="text-xs font-bold text-gray-400 mb-2 uppercase">
+                                        Time-tracking data sources
+                                    </p>
+                                    <p className="text-sm text-gray-500 mb-2">
+                                        This job aggregates time-tracking data from these projects retrieved from an external time-tracking system (e.g. Hubstaff):
+                                    </p>
 
-                                <ProjectSelector 
-                                    value={jobProjects}
-                                    onChange={value => setEditingJobProjectIds(value.map(project => project.value))} />
-                            </div>
+                                    <ProjectSelector
+                                        value={jobProjects}
+                                        onChange={value => setEditingJobProjectIds(value.map(project => project.value))} />
+                                </div>
 
-                            <div className="mt-6">
-                                <p className="text-xs font-bold text-gray-400 mb-2 uppercase">
-                                    TBD job fields edited here
-                                </p>
-                                <p className="text-sm text-gray-500 mb-2">
-                                    Other field groups...
-                                </p>
-                            </div>
-                            
-                            <div className="mt-6">
-                                <p className="text-xs font-bold text-gray-400 mb-2 uppercase">
-                                    TBD job fields edited here
-                                </p>
-                                <p className="text-sm text-gray-500 mb-2">
-                                    Other field groups...
-                                </p>
-                            </div>
+                                <div className="mt-6">
+                                    <p className="text-xs font-bold text-gray-400 mb-2 uppercase">
+                                        TBD job fields edited here
+                                    </p>
+                                    <p className="text-sm text-gray-500 mb-2">
+                                        Other field groups...
+                                    </p>
+                                </div>
 
-                            <div className="mt-4">
-                                <button
-                                    type="button"
-                                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                                    onClick={closeEditJobModal}
-                                >
-                                    Cancel
-                                </button>
-                                <button
-                                    type="button"
-                                    className="inline-flex justify-center ml-4 px-4 py-2 text-sm font-medium text-white bg-green-700 border border-transparent rounded-md hover:bg-green-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                                    onClick={(ev) => saveJob(editingJob)}
-                                >
-                                    Save Changes
-                                </button>
-                            </div>
+                                <div className="mt-6">
+                                    <p className="text-xs font-bold text-gray-400 mb-2 uppercase">
+                                        TBD job fields edited here
+                                    </p>
+                                    <p className="text-sm text-gray-500 mb-2">
+                                        Other field groups...
+                                    </p>
+                                </div>
+
+                                <div className="mt-4">
+                                    <button
+                                        type="button"
+                                        className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                                        onClick={closeEditJobModal}
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        className="inline-flex justify-center ml-4 px-4 py-2 text-sm font-medium text-white bg-green-700 border border-transparent rounded-md hover:bg-green-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                                    >
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </Transition.Child>
                 </div>
