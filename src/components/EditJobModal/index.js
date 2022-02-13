@@ -30,7 +30,7 @@ const EditJobModal = () => {
             ? editingJob.project_ids
                 .map(projectId => ([
                     projectId,
-                    projects.find(project => project.id == projectId)
+                    projects.find(project => project.id === projectId)
                 ]))
                 .filter(([_, project]) => Boolean(project))
                 .map(([projectId, project]) => ({
@@ -38,7 +38,7 @@ const EditJobModal = () => {
                     label: project.name
                 }))
             : []);
-    }, [editingJob]);
+    }, [editingJob, projects]);
     
     function saveJob(job) {
         dispatch(updateJob({ 
