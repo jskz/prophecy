@@ -141,7 +141,7 @@ const JobBoard = () => {
                                         {headerGroups.map(headerGroup => (
                                             <div {...headerGroup.getHeaderGroupProps()} className="tr">
                                                 {headerGroup.headers.map(column => (
-                                                    <div {...column.getHeaderProps()} className="px-6 py-3 text-left text-xs min-h-[56px] font-medium text-gray-500 uppercase tracking-wider items-center flex">
+                                                    <div {...column.getHeaderProps()} className="pl-6 py-3 text-left text-xs min-h-[56px] font-medium text-gray-500 uppercase tracking-wider items-center flex">
                                                         <div className="flex-grow">
                                                             {column.render('Header')}
                                                         </div>
@@ -152,7 +152,7 @@ const JobBoard = () => {
                                             </div>
                                         ))}
                                     </div>
-                                    <div {...getTableBodyProps()} className="bg-white divide-y divide-gray-200">
+                                    <div {...getTableBodyProps()} className="bg-white divide-y divide-gray-200 border-b-[1px]">
                                         {rows.map(row => {
                                             prepareRow(row);
 
@@ -164,7 +164,7 @@ const JobBoard = () => {
                                                         className={`tr hover:bg-gray-100 hover:cursor-pointer ${row.isExpanded ? 'bg-gray-200' : ''}`}>
                                                         {
                                                             row.cells.map(cell => (
-                                                                <span {...cell.getCellProps()} className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
+                                                                <span {...cell.getCellProps()} className="px-6 py-2 whitespace-nowrap text-sm text-gray-500 border-r-[1px]">
                                                                     {cell.render('Cell')}
                                                                 </span>
                                                             ))
