@@ -13,17 +13,50 @@ import Resources from './views/Resources';
 import Schedule from './views/Schedule';
 import Settings from './views/Settings';
 
+import { RequireAuth } from "./util/auth";
+
 const ApplicationRouter = () => (
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<Layout />}>
-                <Route index element={<Jobs />} />
+                <Route
+                    index
+                    element={
+                        <RequireAuth>
+                            <Jobs />
+                        </RequireAuth>
+                    } />
 
                 <Route path="login" element={<Login />} />
-                <Route path="reporting" element={<Reporting />} />
-                <Route path="resources" element={<Resources />} />
-                <Route path="schedule" element={<Schedule />} />
-                <Route path="settings" element={<Settings />} />
+
+                <Route
+                    path="reporting"
+                    element={
+                        <RequireAuth>
+                            <Reporting />
+                        </RequireAuth>
+                    } />
+                <Route
+                    path="resources"
+                    element={
+                        <RequireAuth>
+                            <Resources />
+                        </RequireAuth>
+                    } />
+                <Route
+                    path="schedule"
+                    element={
+                        <RequireAuth>
+                            <Schedule />
+                        </RequireAuth>
+                    } />
+                <Route
+                    path="settings"
+                    element={
+                        <RequireAuth>
+                            <Settings />
+                        </RequireAuth>
+                    } />
             </Route>
         </Routes>
     </BrowserRouter>
