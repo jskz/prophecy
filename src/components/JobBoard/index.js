@@ -114,7 +114,7 @@ const JobBoard = () => {
                         .map(resource => ([resource, resources.find(r => r.id === resource)]))
                         .filter(([_, resource]) => Boolean(resource))
                         .map(([_, resource]) => (
-                            `${resource.name} - ${projectAllocations[resource.id] * 100}%`)
+                            `${resource.name} - ${(projectAllocations[resource.id] || 0) * 100}%`)
                         )
                         .join(', ');
 
