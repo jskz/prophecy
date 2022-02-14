@@ -51,11 +51,20 @@ const JobBoard = () => {
                 Cell: ({ row }) => {
                     const { project_status } = row.values;
 
-                    return (
-                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                            {project_status}
-                        </span>
-                    );
+                    switch(project_status) {
+                        case 'Pending':
+                            return (
+                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                    {project_status}
+                                </span>
+                            );
+                        default:
+                            return (
+                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    {project_status}
+                                </span>
+                            );
+                    }
                 }
             },
             {
@@ -93,6 +102,7 @@ const JobBoard = () => {
                     if (typeof budget_hours !== 'undefined') {
                         const budgetHoursExhaustedPercentage = parseInt(hours_invested * 100 / budget_hours);
                         let exhaustedStyles = '';
+
                         if(hours_invested > budget_hours) {
                             exhaustedStyles = 'text-red-700';
                         }
