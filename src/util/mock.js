@@ -12,7 +12,7 @@ export const MOCK_JOB_DATA = [
     { id: 2, name: 'Big SaaS Project', budget_hours: 800, budget: 270000.00, project_status: 'In Development', project_ids: [3], resource_ids: [2, 3], allocations: {2: 0.3, 3: 1.0} },
     { id: 3, name: 'Just Make It Work!', budget_hours: 30, budget: 20.00, project_status: 'In Development', project_ids: [4], resource_ids: [1], allocations: {1: 0.7} },
     { id: 4, name: 'Thing-o-matic Integration', budget_hours: 70, budget: 5000.00, project_status: 'Pending', project_ids: [5], resource_ids: [], allocations: {} },
-    { id: 5, name: 'Other Test', budget_hours: 10, budget: 1000.00, project_status: 'In Development', project_ids: [6], resource_ids: [1], allocations: {1: 0.7} }
+    { id: 5, name: 'Other Test', budget_hours: 10, budget: 1000.00, project_status: 'In Development', project_ids: [6], resource_ids: [1], allocations: {1: 0.3} }
 ];
 
 export const MOCK_RESOURCE_DATA = [
