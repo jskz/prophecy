@@ -109,7 +109,7 @@ const JobBoard = () => {
 
                         return (
                             <span>
-                                <span className="hours-invested">{`${hours_invested}`}</span>
+                                <span className="hours-invested">{`${hours_invested.toFixed(1)}`}</span>
                                 <span className={`font-bold budget-percentage-exhausted ${exhaustedStyles}`}>{` (${budgetHoursExhaustedPercentage}%)`}</span>
                             </span>
                         );
@@ -117,7 +117,7 @@ const JobBoard = () => {
 
                     return (
                         <span className="font-bold">
-                            {hours_invested}
+                            {hours_invested.toFixed(1)}
                         </span>
                     );
                 }
