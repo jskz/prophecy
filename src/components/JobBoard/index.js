@@ -92,11 +92,15 @@ const JobBoard = () => {
 
                     if (typeof budget_hours !== 'undefined') {
                         const budgetHoursExhaustedPercentage = parseInt(hours_invested * 100 / budget_hours);
+                        let exhaustedStyles = '';
+                        if(hours_invested > budget_hours) {
+                            exhaustedStyles = 'text-red-700';
+                        }
 
                         return (
                             <span>
                                 <span className="hours-invested">{`${hours_invested}`}</span>
-                                <span className={`font-bold budget-percentage-exhausted`}>{` (${budgetHoursExhaustedPercentage}%)`}</span>
+                                <span className={`font-bold budget-percentage-exhausted ${exhaustedStyles}`}>{` (${budgetHoursExhaustedPercentage}%)`}</span>
                             </span>
                         );
                     }
@@ -196,12 +200,22 @@ const JobBoard = () => {
                                         {rows.map(row => {
                                             prepareRow(row);
 
+                                            const { project_ids, budget_hours } = row.original;
+                                            const hours_invested = projects
+                                                .filter(project => project_ids.includes(project.id))
+                                                .reduce((prev, curr) => prev + curr.hours_invested, 0);
+                                            let extraRowClasses = '';
+
+                                            if(hours_invested > budget_hours) {
+                                                extraRowClasses = `bg-red-100`;
+                                            }
+
                                             return (
                                                 <>
                                                     <div
                                                         {...row.getToggleRowExpandedProps()}
                                                         {...row.getRowProps()}
-                                                        className={`tr hover:bg-gray-100 hover:cursor-pointer ${row.isExpanded ? 'bg-gray-200' : ''}`}>
+                                                        className={`tr hover:bg-gray-100 hover:cursor-pointer ${row.isExpanded ? 'bg-gray-200' : ''} ${extraRowClasses}`}>
                                                         {
                                                             row.cells.map(cell => (
                                                                 <span {...cell.getCellProps()} className="px-6 py-2 whitespace-nowrap text-sm text-gray-500 border-r-[1px]">
