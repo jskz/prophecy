@@ -5,6 +5,7 @@ import {
     CalendarIcon,
     ChartPieIcon,
     CogIcon,
+    LockClosedIcon,
     LogoutIcon,
     UserGroupIcon,
     ViewListIcon
@@ -21,6 +22,7 @@ const NavigationBar = () => {
         { label: 'Resources', to: '/resources', MenuItemIcon: UserGroupIcon },
         { label: 'Schedule', to: '/schedule', MenuItemIcon: CalendarIcon },
         { label: 'Reporting', to: '/reporting', MenuItemIcon: ChartPieIcon },
+        { label: 'SSL', to: '/ssl', MenuItemIcon: LockClosedIcon },
         { label: 'Settings', to: '/settings', MenuItemIcon: CogIcon }
     ];
 

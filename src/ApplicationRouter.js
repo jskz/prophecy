@@ -12,6 +12,7 @@ import Reporting from './views/Reporting';
 import Resources from './views/Resources';
 import Schedule from './views/Schedule';
 import Settings from './views/Settings';
+import SSL from './views/SSL';
 
 import { RequireAuth } from "./util/auth";
 
@@ -34,6 +35,13 @@ const ApplicationRouter = () => (
                     element={
                         <RequireAuth>
                             <Reporting />
+                        </RequireAuth>
+                    } />
+                <Route
+                    path="ssl"
+                    element={
+                        <RequireAuth>
+                            <SSL />
                         </RequireAuth>
                     } />
                 <Route

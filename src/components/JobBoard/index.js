@@ -8,7 +8,7 @@ import {
     useResizeColumns
 } from 'react-table';
 
-import { ColumnResizer } from './JobBoardStyles';
+import { ColumnResizer } from '../ColumnResizer';
 import JobDetails from './JobDetails';
 import { currencyFormatter } from '../../util/formatting';
 
