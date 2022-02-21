@@ -17,6 +17,7 @@
     "aws-appsync-auth-link": "^3.0.7",
     "aws-appsync-subscription-link": "^3.0.9",
     "buffer": "^6.0.3",
+    "graphql": "^15.8.0",
     "graphql-tag": "^2.12.6",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
