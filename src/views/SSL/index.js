@@ -12,7 +12,7 @@ function SSL() {
 
     useEffect(() => {
         dispatch(loadSSLDomains());
-    }, []);
+    }, [dispatch]);
 
     return (
         <div>

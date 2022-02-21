@@ -33,7 +33,7 @@ const SSLBoard = ({ domains = [] }) => {
 
                     return (
                         <span className="block overflow-hidden text-ellipsis">
-                            <a href={`https://${host}`} target="_blank">
+                            <a href={`https://${host}`} rel="noreferrer" target="_blank">
                                 {host}
                             </a>
                         </span>
