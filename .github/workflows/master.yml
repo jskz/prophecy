@@ -17,6 +17,11 @@ jobs:
           with:
             node-version: '14'
         - run: npm install
+        - run: |
+            echo "REACT_APP_GRAPHQL_ENDPOINT=${{secrets.REACT_APP_GRAPHQL_ENDPOINT}}" >> .env.local
+            echo "REACT_APP_APPSYNC_REGION=${{secrets.REACT_APP_APPSYNC_REGION}}" >> .env.local
+            echo "REACT_APP_APPSYNC_AUTH_TYPE=${{secrets.REACT_APP_APPSYNC_AUTH_TYPE}}" >> .env.local
+            echo "REACT_APP_APPSYNC_API_KEY=${{secrets.REACT_APP_APPSYNC_API_KEY}}" >> .env.local
         - run: npm run build
         - name: Deploy
           uses: reggionick/s3-deploy@v3
