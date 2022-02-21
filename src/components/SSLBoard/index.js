@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import moment from 'moment';
 import 'moment-duration-format';
 import {
@@ -6,7 +6,8 @@ import {
 
     useExpanded,
     useFlexLayout,
-    useResizeColumns
+    useResizeColumns,
+    useSortBy
 } from 'react-table';
 import {
     PlusCircleIcon,
@@ -28,6 +29,12 @@ const SSLBoard = ({ domains = [], removeDomain, removeDomainLoading, addDomain, 
         }),
         []
     );
+    const expirationSort = (a, b, id) => {
+        if (a.values.expiration > b.values.expiration) return 1; 
+        if (b.values.expiration > a.values.expiration) return -1;
+    
+        return 0;
+    };
     const columns = useMemo(
         () => [
             {
@@ -52,7 +59,7 @@ const SSLBoard = ({ domains = [], removeDomain, removeDomainLoading, addDomain, 
                 Cell: ({ row }) => {
                     const { expiration } = row.values;
 
-                    if(!expiration) {
+                    if (!expiration) {
                         return null;
                     }
 
@@ -66,10 +73,11 @@ const SSLBoard = ({ domains = [], removeDomain, removeDomainLoading, addDomain, 
             {
                 Header: 'Valid For',
                 accessor: 'until',
+                sortType: expirationSort,
                 Cell: ({ row }) => {
                     const { expiration } = row.values;
 
-                    if(!expiration) {
+                    if (!expiration) {
                         return null;
                     }
 
@@ -95,11 +103,12 @@ const SSLBoard = ({ domains = [], removeDomain, removeDomainLoading, addDomain, 
                             {duration.format('M [months and] d [days]')}
                         </span>
                     )
-                }
+                },
             },
             {
                 Header: 'Actions',
                 accessor: 'actions',
+                disableSortBy: true,
                 Cell: ({ row }) => {
                     const { host } = row.values;
 
@@ -128,9 +137,10 @@ const SSLBoard = ({ domains = [], removeDomain, removeDomainLoading, addDomain, 
             defaultColumn,
             autoResetExpanded: false
         },
-        useExpanded,
         useFlexLayout,
-        useResizeColumns
+        useResizeColumns,
+        useSortBy,
+        useExpanded,
     );
 
     const {
@@ -188,8 +198,11 @@ const SSLBoard = ({ domains = [], removeDomain, removeDomainLoading, addDomain, 
                                     <div {...headerGroup.getHeaderGroupProps()} className="tr">
                                         {headerGroup.headers.map(column => (
                                             <div {...column.getHeaderProps()} className="pl-6 py-3 text-left text-xs min-h-[56px] font-medium text-gray-500 uppercase tracking-wider items-center flex">
-                                                <div className="flex-grow">
+                                                <div className="flex-grow" {...column.getHeaderProps(column.getSortByToggleProps())}>
                                                     {column.render('Header')}
+                                                    <span>
+                                                        {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                                                    </span>
                                                 </div>
 
                                                 <ColumnResizer {...column.getResizerProps()} />
